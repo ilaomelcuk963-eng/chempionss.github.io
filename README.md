@@ -1,2 +1,917 @@
-# chempionss.github.io
- me chempions 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Космические Чемпионы</title>
+<style>
+:root {
+  --space-dark: #0a0a2a;
+  --space-blue: #1a1a4a;
+  --neon-blue: #00a8ff;
+  --neon-purple: #9c27b0;
+  --neon-pink: #e91e63;
+  --star-color: #ffffff;
+  --text-glow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, var(--space-dark), var(--space-blue));
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Космический фон с анимацией */
+.space-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background-color: var(--star-color);
+  border-radius: 50%;
+  animation: twinkle 5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), transparent);
+  animation: floatAround 30s infinite linear;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+@keyframes floatAround {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(50px, 50px) rotate(90deg); }
+  50% { transform: translate(100px, 0) rotate(180deg); }
+  75% { transform: translate(50px, -50px) rotate(270deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+/* Основной контейнер */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+  animation: fadeIn 1.5s ease-out;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Заголовок с космической анимацией */
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin: 15px 0 30px;
+  color: white;
+  text-shadow: var(--text-glow);
+  animation: pulse 3s infinite, float 6s infinite ease-in-out;
+  position: relative;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Навигация по разделам */
+.sections-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 30px;
+}
+
+.section-tab {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--neon-blue);
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9em;
+  text-shadow: 0 0 5px var(--neon-blue);
+}
+
+.section-tab.active {
+  background: rgba(0, 168, 255, 0.2);
+  box-shadow: 0 0 15px var(--neon-blue);
+}
+
+.section-tab:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+}
+
+/* Секции */
+.content-section {
+  display: none;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.content-section.active {
+  display: block;
+}
+
+/* Карточки с информацией */
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.info-card {
+  background: rgba(10, 10, 42, 0.7);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid var(--neon-blue);
+  box-shadow: 0 0 20px rgba(0, 168, 255, 0.3);
+  transition: all 0.3s;
+  animation: fadeIn 1s ease-out;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 25px rgba(0, 168, 255, 0.5);
+}
+
+.info-card h3 {
+  color: var(--neon-blue);
+  margin-top: 0;
+  text-shadow: 0 0 10px var(--neon-blue);
+}
+
+.info-card p {
+  line-height: 1.6;
+}
+
+/* Галерея чемпионов */
+.champions-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.champion-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+  animation: fadeIn 1s ease-out;
+  cursor: pointer;
+}
+
+.champion-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--neon-blue);
+  box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+}
+
+.champion-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.champion-name {
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9em;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Благодарность тренеру */
+.thankyou {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 1.1em;
+  color: white;
+  animation: fadeIn 1s ease-out 0.5s both;
+  transition: all 0.3s;
+  text-align: center;
+  border: 1px solid var(--neon-purple);
+  position: relative;
+  overflow: hidden;
+}
+
+.thankyou::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(156, 39, 176, 0.1), transparent);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.thankyou:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(156, 39, 176, 0.4);
+}
+
+/* Комментарии */
+.comments-section {
+  margin-top: 30px;
+  animation: fadeIn 1s ease-out 1s both;
+}
+
+.comments-section h3 {
+  text-align: center;
+  color: white;
+  margin-bottom: 15px;
+  text-shadow: var(--text-glow);
+}
+
+.comments-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.comment {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border-left: 3px solid var(--neon-blue);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.comment:last-child {
+  margin-bottom: 0;
+}
+
+.comment-author {
+  font-weight: bold;
+  color: var(--neon-blue);
+  margin-bottom: 5px;
+}
+
+.comment-text {
+  line-height: 1.4;
+}
+
+.comment-date {
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: right;
+  margin-top: 5px;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--neon-blue);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 1em;
+  transition: all 0.3s;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--neon-blue);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.comment-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+/* Кнопка отправки */
+.animated-button {
+  display: block;
+  margin: 25px auto;
+  padding: 12px 30px;
+  background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+  border: none;
+  color: white;
+  border-radius: 25px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  animation: pulse 2s infinite;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.animated-button:hover::before {
+  left: 100%;
+}
+
+.animated-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 168, 255, 0.6);
+}
+
+/* Социальные сети */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 168, 255, 0.4);
+  border-color: var(--neon-blue);
+}
+
+.social-link.telegram:hover {
+  background: rgba(0, 136, 204, 0.2);
+}
+
+.social-link.viber:hover {
+  background: rgba(123, 81, 157, 0.2);
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+/* Модальное окно для чемпионов */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, var(--space-dark), var(--space-blue));
+  border-radius: 15px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  padding: 20px;
+  position: relative;
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 30px var(--neon-blue);
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5em;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.close-modal:hover {
+  color: var(--neon-pink);
+  transform: scale(1.2);
+}
+
+.modal-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.modal-title {
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: var(--text-glow);
+}
+
+/* Адаптивность для планшетов и десктопов */
+@media (min-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 3.5em;
+    margin: 20px 0 40px;
+  }
+  
+  .sections-nav {
+    gap: 15px;
+    margin: 30px 0 40px;
+  }
+  
+  .section-tab {
+    padding: 12px 25px;
+    font-size: 1em;
+  }
+  
+  .info-cards {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+  }
+  
+  .champions-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .champion-card img {
+    height: 200px;
+  }
+  
+  .thankyou {
+    padding: 25px;
+    font-size: 1.2em;
+  }
+  
+  .comment-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .comment-form input {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .comment-form textarea {
+    flex: 100%;
+  }
+  
+  .social-links {
+    gap: 30px;
+  }
+  
+  .social-link {
+    padding: 12px 25px;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 4em;
+  }
+  
+  .info-cards {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+  
+  .champions-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Космический фон -->
+<div class="space-bg" id="spaceBg"></div>
+
+<!-- Основной контейнер -->
+<div class="container">
+  <!-- Заголовок -->
+  <h1>Космические Чемпионы</h1>
+
+  <!-- Социальные сети -->
+  <div class="social-links">
+    <a href="https://t.me/example" class="social-link telegram" target="_blank">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDBDNS4zNzMgMCAwIDUuMzczIDAgMTJzNS4zNzMgMTIgMTIgMTIgMTItNS4zNzMgMTItMTJTMTguNjI3IDAgMTIgMHptNS44OTQgOC4yMWwtMS45NyA5LjI4M2MtLjE0NS42NTUtLjUzNyAxLjEwMi0xLjA5MiAxLjEwMi0uNDE2IDAtLjg0OC0uMTc1LTEuMzI2LS41ODNsLTMuNjI1LTIuNzI3LTEuNDQ2IDEuMzU0Yy0uMTQuMTMtLjMzNi4yMDItLjUyOC4yMDItLjQxNiAwLS42My0uMzI2LS42My0uNjU2VjguOTc0YzAtLjQxNi4zMzYtLjYzLjcwMi0uNjMuMTY4IDAgLjU2LjA3Ljg5Ni4zNjdsNC43MjYgMy4wNDUgMS44MzItMS4yMDJjLjM2NC0uMjQ1LjYzLS4zNjQgODMyLS4zNjQuMjEgMCAuMzUuMDQ2LjQ1NS4xNC4wOTcuMDk0LjE0LjIzNC4xNC4zOTQtLjAwMi4xNC0uMDcuMjgtLjIxLjQyeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==" class="social-icon" alt="Telegram">
+      <span>Telegram</span>
+    </a>
+    <a href="viber://chat?number=+1234567890" class="social-link viber" target="_blank">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIzLjE1NSAxMy44OTNhNy4zODIgNy4zODIgMCAwIDAtMS4wMDQtMy43MjMgNy4zODIgNy4zODIgMCAwIDAtMy43MjMtMS4wMDRjLTMuOTcyLS4yODMtNy43MzYgMi45NTktOC4wMTkgNi45MzEtLjIxMyAyLjgzOCAxLjE0OCA1LjQzNSAzLjM1MiA2Ljg5OGwtMS44NTUgNS4xODFjLS4xMjguMzU5LjE5Mi43MTcuNTUzLjU4OGw1LjE4LTEuODU1YTguNDY2IDguNDY2IDAgMCAwIDMuOTYxLjc0OWMzLjk3Mi4yODMgNy43MzYtMi45NTkgOC4wMTktNi45MzFhNy40NjYgNy40NjYgMCAwIDAgMC0zLjk2MXptLTYuODI3IDUuNDM2YTUuOTk2IDUuOTk2IDAgMCAxLTQuMjQzIDEuNzE4IDYuMDAzIDYuMDAzIDAgMCAxLTQuMjQzLTEuNzE4IDUuOTk2IDUuOTk2IDAgMCAxLTEuNzE4LTQuMjQzIDUuOTk2IDUuOTk2IDAgMCAxIDEuNzE4LTQuMjQzIDUuOTk2IDUuOTk2IDAgMCAxIDQuMjQzLTEuNzE4IDYuMDAzIDYuMDAzIDAgMCAxIDQuMjQzIDEuNzE4IDUuOTk2IDUuOTk2IDAgMCAxIDEuNzE4IDQuMjQzIDUuOTk2IDUuOTk2IDAgMCAxLTEuNzE4IDQuMjQzem0zLjIwMS05LjQwMmMtLjM0NSAwLS42MjQtLjI3OS0uNjI0LS42MjRzLjI3OS0uNjI0LjYyNC0uNjI0LjYyNC4yNzkuNjI0LjYyNC0uMjc5LjYyNC0uNjI0LjYyNHptMy4zMjggMGMtLjM0NSAwLS42MjQtLjI3OS0uNjI0LS42MjRzLjI3OS0uNjI0LjYyNC0uNjI0LjYyNC4yNzkuNjI0LjYyNC0uMjc5LjYyNC0uNjI0LjYyNHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=" class="social-icon" alt="Viber">
+      <span>Viber</span>
+    </a>
+  </div>
+
+  <!-- Навигация по разделам -->
+  <div class="sections-nav">
+    <div class="section-tab active" data-section="running-info">О беге</div>
+    <div class="section-tab" data-section="sport-benefits">Польза спорта</div>
+    <div class="section-tab" data-section="champions-gallery">Галерея чемпионов</div>
+  </div>
+
+  <!-- Информация о беге -->
+  <div id="running-info" class="content-section active">
+    <h2 style="text-align: center; margin-bottom: 20px; text-shadow: var(--text-glow);">Бег - путь к здоровью и чемпионству</h2>
+    
+    <div class="info-cards">
+      <div class="info-card">
+        <h3>Польза бега для здоровья</h3>
+        <p>Бег укрепляет сердечно-сосудистую систему, повышает выносливость, способствует снижению веса и улучшает общее состояние организма. Регулярные пробежки помогают бороться со стрессом и повышают уровень эндорфинов.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Техника бега</h3>
+        <p>Правильная техника бега включает в себя: прямое положение корпуса, расслабленные плечи, согнутые под углом 90 градусов руки, приземление на среднюю часть стопы и поддержание оптимальной частоты шагов (180 шагов в минуту).</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Тренировочные планы</h3>
+        <p>Для начинающих рекомендуется начинать с чередования бега и ходьбы, постепенно увеличивая время непрерывного бега. Опытные бегуны могут использовать интервальные тренировки, темповый бег и длительные пробежки для улучшения результатов.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Питание для бегунов</h3>
+        <p>Бегунам важно потреблять достаточное количество углеводов для энергии, белков для восстановления мышц и жиров для гормональной системы. Не забывайте о гидратации - пейте воду до, во время и после тренировок.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Экипировка</h3>
+        <p>Ключевой элемент экипировки бегуна - качественные кроссовки, подходящие для вашего типа пронации и покрытия. Также важна удобная одежда из дышащих материалов, которая не стесняет движения.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Мотивация</h3>
+        <p>Ставьте реалистичные цели, ведите дневник тренировок, находите единомышленников для совместных пробежек и участвуйте в соревнованиях. Помните, что регулярность - ключ к прогрессу в беге.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Польза спорта -->
+  <div id="sport-benefits" class="content-section">
+    <h2 style="text-align: center; margin-bottom: 20px; text-shadow: var(--text-glow);">Польза регулярных занятий спортом</h2>
+    
+    <div class="info-cards">
+      <div class="info-card">
+        <h3>Физическое здоровье</h3>
+        <p>Регулярные физические нагрузки укрепляют сердечно-сосудистую систему, повышают иммунитет, улучшают обмен веществ, способствуют поддержанию здорового веса и увеличивают продолжительность жизни.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Психическое здоровье</h3>
+        <p>Спорт помогает бороться со стрессом, тревогой и депрессией. Физическая активность стимулирует выработку эндорфинов - "гормонов счастья", улучшает сон и повышает самооценку.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Социальные benefits</h3>
+        <p>Занятия спортом в команде развивают коммуникативные навыки, учат работать в коллективе, помогают завести новых друзей и расширить круг общения.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Развитие характера</h3>
+        <p>Спорт воспитывает дисциплину, целеустремленность, упорство, умение преодолевать трудности и работать на результат. Эти качества полезны не только в спорте, но и в повседневной жизни.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Профилактика заболеваний</h3>
+        <p>Регулярная физическая активность снижает риск развития многих хронических заболеваний, включая диабет 2 типа, остеопороз, некоторые виды рака и сердечно-сосудистые заболевания.</p>
+      </div>
+      
+      <div class="info-card">
+        <h3>Улучшение когнитивных функций</h3>
+        <p>Спорт улучшает кровоснабжение мозга, что положительно сказывается на памяти, концентрации внимания и скорости обработки информации. Физически активные люди обычно лучше справляются с умственными задачами.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Галерея чемпионов -->
+<div id="champions-gallery" class="content-section">
+    <h2 style="text-align: center; margin-bottom: 20px; text-shadow: var(--text-glow);">Наши Чемпионы</h2>
+    <div class="champions-gallery">
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-53-796.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-53-796.jpg" alt="Чемпион">
+        <div class="champion-name">Команда чемпионов</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-53-335.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-53-335.jpg" alt="Чемпион 1">
+        <div class="champion-name">Чемпион 1</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-52-275.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-52-275.jpg" alt="Чемпион 2">
+        <div class="champion-name">Чемпион 2</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-52-483.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-52-483.jpg" alt="Чемпион 3">
+        <div class="champion-name">Чемпион 3</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-52-823.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-52-823.jpg" alt="Чемпион 4">
+        <div class="champion-name">Чемпион 4</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-53-101.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-53-101.jpg" alt="Чемпион 5">
+        <div class="champion-name">Чемпион 5</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-53-584.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-53-584.jpg" alt="Чемпион 6">
+        <div class="champion-name">Чемпион 6</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-53-995.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-53-995.jpg" alt="Чемпион 7">
+        <div class="champion-name">Чемпион 7</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_21-35-54-212.jpg">
+        <img src="./изображение_viber_2025-09-30_21-35-54-212.jpg" alt="Чемпион 8">
+        <div class="champion-name">Чемпион 8</div>
+      </div>
+      <div class="champion-card" data-image="./изображение_viber_2025-09-30_22-03-01-739.jpg">
+        <img src="./изображение_viber_2025-09-30_22-03-01-739.jpg" alt="Чемпион 9">
+        <div class="champion-name">Чемпион 9</div>
+      </div>
+    </div>
+  </div>
+  <!-- Благодарность тренеру -->
+  <div class="thankyou">
+    Благодарность тренеру за прекрасную работу и поддержку!<br>
+    Елена Влодимеровна Бычук - лучший тренер! Спасибо ей за доброту,<br>
+    профессионализм и за долгие годы обучения "Сумасшедших лошадей"!
+  </div>
+
+  <!-- Комментарии -->
+  <div class="comments-section">
+    <h3>Комментарии и отзывы</h3>
+    
+    <div class="comments-list" id="commentsList">
+      <!-- Комментарии будут загружаться здесь -->
+    </div>
+    
+    <div class="comment-form">
+      <input type="text" id="commentAuthor" placeholder="Ваше имя" required>
+      <textarea id="commentText" placeholder="Ваш комментарий..." required></textarea>
+      <button class="animated-button" id="submitComment">Оставить комментарий</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модальное окно для просмотра изображений -->
+<div class="modal" id="imageModal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <img class="modal-image" id="modalImage" src="" alt="Чемпион">
+    <h3 class="modal-title" id="modalTitle">Чемпион</h3>
+  </div>
+</div>
+
+<script>
+// Создание звездного неба с планетами
+function createSpaceBackground() {
+  const spaceBg = document.getElementById('spaceBg');
+  const starCount = 200;
+  
+  // Создаем звезды
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.classList.add('star');
+    
+    // Случайные размеры и позиции
+    const size = Math.random() * 3;
+    const left = Math.random() * 100;
+    const top = Math.random() * 100;
+    const delay = Math.random() * 5;
+    
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.left = `${left}%`;
+    star.style.top = `${top}%`;
+    star.style.animationDelay = `${delay}s`;
+    
+    spaceBg.appendChild(star);
+  }
+  
+  // Создаем планеты
+  const planetCount = 3;
+  for (let i = 0; i < planetCount; i++) {
+    const planet = document.createElement('div');
+    planet.classList.add('planet');
+    
+    const size = 50 + Math.random() * 100;
+    const left = Math.random() * 80;
+    const top = Math.random() * 80;
+    const duration = 20 + Math.random() * 40;
+    
+    planet.style.width = `${size}px`;
+    planet.style.height = `${size}px`;
+    planet.style.left = `${left}%`;
+    planet.style.top = `${top}%`;
+    planet.style.animationDuration = `${duration}s`;
+    
+    spaceBg.appendChild(planet);
+  }
+}
+
+// Переключение между разделами
+document.querySelectorAll('.section-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    // Убираем активный класс у всех вкладок
+    document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+    // Добавляем активный класс текущей вкладке
+    this.classList.add('active');
+    
+    // Скрываем все секции
+    document.querySelectorAll('.content-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    
+    // Показываем выбранную секцию
+    const sectionId = this.getAttribute('data-section');
+    document.getElementById(sectionId).classList.add('active');
+  });
+});
+
+// Модальное окно для изображений
+const modal = document.getElementById('imageModal');
+const modalImage = document.getElementById('modalImage');
+const modalTitle = document.getElementById('modalTitle');
+const closeModal = document.querySelector('.close-modal');
+
+document.querySelectorAll('.champion-card').forEach(card => {
+  card.addEventListener('click', function() {
+    const imageSrc = this.getAttribute('data-image');
+    const title = this.querySelector('.champion-name').textContent;
+    
+    modalImage.src = imageSrc;
+    modalTitle.textContent = title;
+    modal.style.display = 'flex';
+  });
+});
+
+closeModal.addEventListener('click', function() {
+  modal.style.display = 'none';
+});
+
+modal.addEventListener('click', function(e) {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+});
+
+// Система комментариев с "облачным" хранилищем (localStorage)
+function loadComments() {
+  const commentsList = document.getElementById('commentsList');
+  const savedComments = localStorage.getItem('championsComments');
+  
+  if (savedComments) {
+    const comments = JSON.parse(savedComments);
+    commentsList.innerHTML = '';
+    
+    comments.forEach(comment => {
+      const commentElement = document.createElement('div');
+      commentElement.className = 'comment';
+      commentElement.innerHTML = `
+        <div class="comment-author">${comment.author}</div>
+        <div class="comment-text">${comment.text}</div>
+        <div class="comment-date">${comment.date}</div>
+      `;
+      commentsList.appendChild(commentElement);
+    });
+    
+    // Прокручиваем к последнему комментарию
+    commentsList.scrollTop = commentsList.scrollHeight;
+  } else {
+    commentsList.innerHTML = '<div class="comment">Пока нет комментариев. Будьте первым!</div>';
+  }
+}
+
+function saveComment(author, text) {
+  const savedComments = localStorage.getItem('championsComments');
+  const comments = savedComments ? JSON.parse(savedComments) : [];
+  
+  const newComment = {
+    author: author,
+    text: text,
+    date: new Date().toLocaleString('ru-RU')
+  };
+  
+  comments.push(newComment);
+  localStorage.setItem('championsComments', JSON.stringify(comments));
+  
+  loadComments();
+}
+
+document.getElementById('submitComment').addEventListener('click', function() {
+  const authorInput = document.getElementById('commentAuthor');
+  const textInput = document.getElementById('commentText');
+  
+  const author = authorInput.value.trim();
+  const text = textInput.value.trim();
+  
+  if (author && text) {
+    saveComment(author, text);
+    
+    // Очищаем поля ввода
+    authorInput.value = '';
+    textInput.value = '';
+    
+    // Показываем уведомление
+    alert('Спасибо за ваш комментарий!');
+  } else {
+    alert('Пожалуйста, заполните все поля');
+  }
+});
+
+// Инициализация при загрузке страницы
+window.addEventListener('DOMContentLoaded', function() {
+  createSpaceBackground();
+  loadComments();
+});
+</script>
+
+</body>
+
+</html>
